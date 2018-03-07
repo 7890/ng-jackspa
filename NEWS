@@ -1,0 +1,44 @@
+Release Notes for ng-jackspa version/1.0
+----------------------------------------
+
+This is the first release of ng-jackspa, a forked continuation of
+link:http://code.google.com/p/jackspa/[jackspa].
+
+Updates since the original jackspa
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* New
+
+  - New interfaces were added: ncurses, Qt and command line.
+  - The interfaces are more elaborate, allowing one to easily switch between
+    two sets of control values and to reset the controls to their default
+    values, which is convenient for testing LADSPA plugins.
+  - A UNIX manual page ng-jackspa(1) was added.
+  - The LADSPA plugin can be specified by its label in addition to its UID.
+  - Several command line switches are now implemented, notably to set the
+    initial values or to override the default values given by the plugin.
+  - Automatically start a JACK server (if it is not already running).
+  - Several jackspa instances of the same plugin can be run simultaneously by
+    letting JACK generate a new client name if the default one is already used.
+  - The control inputs/outputs can be exported as control voltages on JACK
+    audio ports and connected to each other using standard JACK connection
+    managers; JACK peak meters can be used to visualize the control port
+    values.  (In jackspa only the control outputs were exported to JACK.)
+
+* New documentation files: README, BUGS, INSTALL, NEWS.
+
+
+Fixes since the original jackspa
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+jackspa was found to be fully functional, although a lot of code cleanup and
+many fixes could be made.  For a complete list of fixes see the VCS' history.
+
+* Most notable fixes
+
+  - Do not export output control ports as JACK audio ports by default.
+  - Accept a client name modified by JACK (if the one provided is already in
+    use).
+  - Search the `$LADSPA_PATH` for plugin libraries.
+  - The graphical interfaces have scrollbars if the window size becomes too
+    small.

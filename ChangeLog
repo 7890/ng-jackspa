@@ -1,0 +1,763 @@
+# ChangeLog for ng-jackspa - automatically generated from the VCS's history
+
+[version/1.0]
+2013-07-02  G.raud  <graud@gmx.com>
+
+	version/1.0
+	
+	* NEWS: document the major changes since the fork
+	* README: link to NEWS
+	* Makefile: build and distribute NEWS.html
+
+2013-07-01  G.raud  <graud@gmx.com>
+
+	INSTALL: new documentation file
+	
+	* README: link to INSTALL
+	* Makefile: build and distribute INSTALL.html
+
+2013-07-01  G.raud  <graud@gmx.com>
+
+	BUGS: new documentation file
+	
+	* README: include BUGS
+	* Makefile: updated
+
+2013-07-01  G.raud  <graud@gmx.com>
+
+	README: homepage & credits & license
+
+2013-07-01  G.raud  <graud@gmx.com>
+
+	Makefile: dist: include a ChangeLog
+	
+	* gitchanglog.sh version 1.1 included as a helper script
+
+2013-07-01  G.raud  <graud@gmx.com>
+
+	Makefile: dist: build a distribution archive
+	
+	* distclean: updated
+	* maintainer-clean: new target
+
+2013-07-01  G.raud  <graud@gmx.com>
+
+	Makefile: install-doc: install manpage links for each command
+
+2013-07-01  G.raud  <graud@gmx.com>
+
+	Makefile: install, install-doc & general update
+	
+	* version.sh: new helper script to get the version number
+	* install: use $(prefix) and $(DESTDIR)
+	* install-doc: new target installing $(MANDOC), $(HTMLDOC)
+
+2013-07-01  G.raud  <graud@gmx.com>
+
+	ng-jackspa.1: examples controlling from another process or another network host
+
+2013-07-01  G.raud  <graud@gmx.com>
+
+	ng-jackspa.1: example connecting several jackspa instances
+
+2013-06-30  G.raud  <graud@gmx.com>
+
+	Makefile: doc: convert the AsciiDoc files (manpage & README)
+	
+	* asciidoc.conf: new config file
+
+2013-06-30  G.raud  <graud@gmx.com>
+
+	ng-jackspa.1.txt: new manual page documenting the interface programs available
+	
+	* README: delete the section Usage
+
+2013-07-01  G.raud  <graud@gmx.com>
+
+	Makefile: [fix] jackspa-cli: missing feature macro definitions (getpgid())
+
+2013-07-01  G.raud  <graud@gmx.com>
+
+	use the same licensing statements in all the headers
+
+2013-06-30  G.raud  <graud@gmx.com>
+
+	control: control_fini(): new function to cleanup
+	
+	* control_cleanupall(): call control_fini()
+	* gjackspa, qjackspa: call control_fini() in the destructors of the control
+	  widgets
+
+2013-06-24  G.raud  <graud@gmx.com>
+
+	jackspa: jackspa_fini(): new function to close/cleanup
+	
+	* struct control_t: new member library to store the dlopen() handle
+	* close_plugin(): new function to reverse find_plugin()
+	* njackspa, gjackspa, qjackspa, jackspa-cli: call jackspa_fini() in all the
+	  interfaces
+
+2013-07-01  G.raud  <graud@gmx.com>
+
+	jackspa-cli: SIGUSR1 handler to print the active control values
+
+2013-06-30  G.raud  <graud@gmx.com>
+
+	njackspa: enter a value spec in a field with wtextentry()
+	
+	* curses.c: new file included by njackspa.c
+	* control: export control_set_value()
+	* Makefile: updated
+
+2013-06-30  G.raud  <graud@gmx.com>
+
+	njackspa: add an alternative layout (narrow, two lines per control)
+
+2013-06-30  G.raud  <graud@gmx.com>
+
+	njackspa: [fix] call cbreak() explicitly as recommmended by the manpage
+
+2013-06-30  G.raud  <graud@gmx.com>
+
+	njackspa: [bug] fix the fields' widths
+	
+	* use remaining space for the larger field because of integer roundings
+
+2013-06-30  G.raud  <graud@gmx.com>
+
+	njackspa: allow to modify directly the active control values
+
+2013-07-01  G.raud  <graud@gmx.com>
+
+	jackspa-cli: take into account verbose
+
+2013-06-28  G.raud  <graud@gmx.com>
+
+	gjackspa, qjackspa: do not pop up any error window if not verbose
+
+2013-06-23  G.raud  <graud@gmx.com>
+
+	jackspa: accept a plugin UID or a plugin Label on the command line
+	
+	* in particular do not accept malformed UID numbers as numbers
+	* interface.c: update the help message
+
+2013-06-23  G.raud  <graud@gmx.com>
+
+	ladspa.c: [fix] new file defining ladspa_dlopen() to search the LADSPA_PATH
+	
+	* the LADSPA standard recommends to search for plugins in the paths given in the
+	  environement variable $LADSPA_PATH
+	* control.c:
+	  - include ladspa.c
+	  - find_plugin(): call ladpsa_dlopen() instead of dlopen()
+	* Makefile: updated
+	* README: show in the usage section that an absolute library path is not
+	  necessary
+
+2013-06-28  G.raud  <graud@gmx.com>
+
+	control: --bounds: new switch to override the min/max
+	
+	* control_init_t, control_set_init(): replace the use of a pointer by an
+	  additional boolean (to avoid to call malloc())
+	* control_init(): take into account the new config values
+
+2013-07-01  G.raud  <graud@gmx.com>
+
+	jackspa: --names: new switch to override the plugin port names
+	
+	* state_t: new member port_names
+	* control: control_init(): use state->port_names instead of
+	  state->descriptor->PortNames
+
+2013-07-01  G.raud  <graud@gmx.com>
+
+	jackspa: --jack-client: new switch to set the client name
+
+2013-06-30  G.raud  <graud@gmx.com>
+
+	jackspa: --controlv-inasout: export the controls as output control voltages
+
+2013-06-28  G.raud  <graud@gmx.com>
+
+	jackspa: --controlv-in: export controls as Jack input audio ports
+	
+	* only the first sample of a frame is meaningful
+	* can be connected to a jackspa control output (exported as a Jack audio ports)
+	  or any control voltage audio port
+
+2013-06-28  G.raud  <graud@gmx.com>
+
+	jackspa: state_t: new member num_meter_ports
+	
+	* init_jack(): initialize it
+
+2013-06-28  G.raud  <graud@gmx.com>
+
+	jackspa: --controlv-out: export "meters" as Jack audio ports
+	
+	* the first sample of a frame is the control port value; the rest is zero
+	* usable with a peak meter
+
+2013-06-24  G.raud  <graud@gmx.com>
+
+	jackspa: --jack-nostartserver: new switch
+
+2013-06-23  G.raud  <graud@gmx.com>
+
+	jackspa: --jack-exactname: new switch to disable multiple hosts for one plugin
+
+2013-06-24  G.raud  <graud@gmx.com>
+
+	jackspa: store command line args in static variables
+	
+	* for consistence with the rest of the command line processing
+	* keeping the command line available can help in implementing a jack session
+	  callback
+
+2013-06-24  G.raud  <graud@gmx.com>
+
+	merge options: command line options parser & first config options
+
+2013-06-23  G.raud  <graud@gmx.com>
+
+	control: take into account the initial config values
+	
+	* include interface.h that defines a glib related function
+	* struct control_init_t: new type to store the config values for a given control
+	* struct control_t: new member ctrl; deleted needless member alt_sel
+	* control_set_value(): new function that interprets a mini command language to
+	  set a value
+	* control_set_init(): new function that extracts the initial config of a given
+	  control index
+	* init_control(): take the control index as an additional argument to be able to
+	  find the config values
+	* gjackspa, qjackspa: pass the control index to the control widget initializer
+	  which passes it to init_control()
+
+2013-06-23  G.raud  <graud@gmx.com>
+
+	interface.h: new interface for entities common to all of the modules
+	
+	* export the Glib related glib_strv_index()
+
+2013-06-22  G.raud  <graud@gmx.com>
+
+	njackspa, gjackspa, qjackspa, jackspa-cli: include interface.c, parse options
+	
+	* njackspa, gjackdspa, qjackspa, jackspa-cli:
+	  - define PROGRAM_NAME, which is required by interface.c
+	  - gjackspa, qjackspa: use PACKAGE_NAME defined by interface.c
+	  - gjackspa: use the glibmm wrapper
+	  - qjackspa: do not use the glibmm wrapper, to avoid a dependency
+	* Makefile:
+	  - $COMMONS: new variable pointing to the source files directly included by
+	    others
+
+2013-06-22  G.raud  <graud@gmx.com>
+
+	interface.c: new file to build a parser for the command line options
+	
+	* require the interface sourcing 'interface.c' to define some string macros
+	  (PROGRAM_NAME)
+	* define string macros (PACKAGE_NAME)
+	* provide a function returning a GOption context for a main interface program to
+	  parse the command line
+	  - the context contains the options of the control interface defined in
+	    control.c
+
+2013-06-22  G.raud  <graud@gmx.com>
+
+	control: define and export GOption related entities
+	
+	* parse --inits and --defaults and tokenize and store the result in static
+	  varibales
+	* Makefile, qjackspa.pro: use Glib and set G_DISABLE_DEPRECATED
+
+2013-06-22  G.raud  <graud@gmx.com>
+
+	gjackspa: --help: new command line switch
+
+2013-06-23  G.raud  <graud@gmx.com>
+
+	jackspa: [fix] do not accept extra unused arguments on the command line
+
+2013-06-23  G.raud  <graud@gmx.com>
+
+	jackpsa: [bug] accept any non error Jack status (generated client name etc.)
+	
+	* in particular, a new client name can be generated by Jack:
+	  - it makes it possible to run several jackspa interfaces hosting the same
+	    plugin simultaneously
+	  - retrieve the actual name and free the string state->client_name when it is
+	    not needed anymore
+	* in particular, a JACK server can be started if none is running already
+
+2013-06-23  G.raud  <graud@gmx.com>
+
+	jackspa: [fix] suppress the needless control_port_buffer
+	
+	* control_t: delete the member
+	* init_jack(): connect the LADSPA input control ports directly to the
+	  control_port_values
+	* process(): do not touch the input control ports
+	* suppress the related JACK buffer size callback
+
+2013-06-19  G.raud  <graud@gmx.com>
+
+	jackspa: [bug] ignore the LADSPA control outputs
+	
+	* instead of connecting them to jack audio ports
+
+2013-06-23  G.raud  <graud@gmx.com>
+
+	jackpsa: [fix] exchange the args of calloc(), replace malloc() by calloc()
+	
+	* also for state->client_name:
+	  - use sizeof(char) instead of 1 (to be easier to understand and to avoid a
+	    theoretical bug)
+	  - add a comment about the previous initialisation of the string by calloc()
+
+2013-06-19  G.raud  <graud@gmx.com>
+
+	[fix] use appropriate variable types; comment the variables' declarations
+	
+	* declare variables with the appropriate type to avoid implicit useless typecasts
+	* add comments about the variables' use near their declaration
+	* for C source files, make or keep the unavoidable type casts explicit:
+	  - because we might want to compile the module as C++
+	  - because if we find an implicit "type cast" it will show that the code was not
+	    considered while changing types
+	* use LADSPA_Data instead of float where it makes sense
+	* state_t: also rename ports to jack_ports
+
+2013-06-18  G.raud  <graud@gmx.com>
+
+	qjackspa: center the title label by spanning it accross two lines
+
+2013-06-18  G.raud  <graud@gmx.com>
+
+	qjackspa: new main toggle to switch between two sets of control values
+
+2013-06-18  G.raud  <graud@gmx.com>
+
+	gjackspa: new main toggle to change between two sets of control values
+
+2013-06-18  G.raud  <graud@gmx.com>
+
+	qjackspa: ControlLayout: new member exchange_control() to call control_exchange()
+
+2013-06-18  G.raud  <graud@gmx.com>
+
+	gjackspa: ControlWidget: new member exchange_control() to call control_exchange()
+
+2013-06-18  G.raud  <graud@gmx.com>
+
+	qjackspa: notify of standard exceptions during the Qt interface setup
+
+2013-06-18  G.raud  <graud@gmx.com>
+
+	qjackspa: set the Qt parent of a dynamic widget ASAP
+	
+	* also try to make the layout/spacing setup apparent
+
+2013-06-18  G.raud  <graud@gmx.com>
+
+	gjackspa: reorder the required gtkmm headers
+	
+	* not including everything in gtkmm.h allows recent versions of clang not to fail
+	  to compile
+
+2013-06-18  G.raud  <graud@gmx.com>
+
+	merge: make gjackspa more similar to qjackspa
+	
+	* keyboard shortcut, window centering, use all window space, spacing
+
+2013-06-17  G.raud  <graud@gmx.com>
+
+	gjackspa: center the critical message window
+
+2013-06-17  G.raud  <graud@gmx.com>
+
+	gjackspa: add a mnemonic 'D' for the main button
+
+2013-06-17  G.raud  <graud@gmx.com>
+
+	gjackspa: homogeneously filled main slider_box
+	
+	* if the user wants a more compact view, let him converse with his window manager
+
+2013-06-17  G.raud  <graud@gmx.com>
+
+	gjackspa: window.set_border_width() to add some spacing
+
+2013-06-17  G.raud  <graud@gmx.com>
+
+	gjackspa: [fix] Gtk::manage() the dynamically allocated objects
+	
+	* it is only a good practice since in the case of gjackspa, the child objects do
+	  not have to be deallocated before quitting the application anyways
+
+2013-06-17  G.raud  <graud@gmx.com>
+
+	README: qjackspa
+
+2013-06-17  G.raud  <graud@gmx.com>
+
+	merge qjackspa: new Qt 4 graphical interface
+	
+	* qjackspa.cpp, qjackspa.h: new Qt 4 interface
+	* Makefile: updated
+
+2013-06-17  G.raud  <graud@gmx.com>
+
+	qjackspa: add titles to some blocks of code
+
+2013-06-17  G.raud  <graud@gmx.com>
+
+	qjackspa: give the plugin label in the window title
+
+2013-06-17  G.raud  <graud@gmx.com>
+
+	qjackspa: ControlLayout: slider: set tick marks for integer control values
+
+2013-06-18  G.raud  <graud@gmx.com>
+
+	qjackspa: add some spacing
+
+2013-06-17  G.raud  <graud@gmx.com>
+
+	qjackspa: ControlLayout: single QGridLayout instead of several QBoxLayout's
+
+2013-06-17  G.raud  <graud@gmx.com>
+
+	qjackspa: include only required Qt 4 headers instead of QtGui
+	
+	* faster to compile
+	* possibly also less warnings
+
+2013-06-18  G.raud  <graud@gmx.com>
+
+	qjackspa: ControlLayout: optionally set the Qt parent in the constructor
+	
+	* as is common in Qt
+	* also delete the needless definition of the empty destructor
+
+2013-06-17  G.raud  <graud@gmx.com>
+
+	qjackspa: ControlLayout: allow the QSpinBox to set the control value
+
+2013-06-17  G.raud  <graud@gmx.com>
+
+	qjackspa: ControlLayout: add a QSpinBox to display the value
+
+2013-06-17  G.raud  <graud@gmx.com>
+
+	qjackspa: [fix] layout policy to use (all) the available window size
+
+2013-06-17  G.raud  <graud@gmx.com>
+
+	qjackspa.cpp, qjackspa.h: new Qt 4 graphical interface
+	
+	* functional version
+	* qjackspa.cpp: graphical interface similar to gjackspa.cpp
+	  - initialise jackspa and add a list of control widgets
+	  - main window with a scroll area
+	  - additional logic to cater for a slider with integer values
+	* qjackspa.pro: new qmake project file for qjackspa
+	* Makefile:
+	  - qjackspa: always let qmake generate Makefile.qmake and call make on
+	  this Makefile
+	  - clean: also call make on the qmake generated makefile
+	* qjackspa.h: separate include file required by qmake and moc that lists the
+	  declarations of the project's QObject's that have slots or signals
+	* .gitignore: updated
+
+2013-06-19  G.raud  <graud@gmx.com>
+
+	jackspa-cli: continue to run in the background on SIGTSTP
+	
+	* since a child process is used for that, also set up a handler for SIGCHLD
+	* tty: new file local variable holding the controlling terminal
+
+2013-06-19  G.raud  <graud@gmx.com>
+
+	control: [fix] control_buildall(): do not recompute the number of controls
+
+2013-06-11  G.raud  <graud@gmx.com>
+
+	control: define and export control_buildall(), control_cleanupall() to factorize
+	
+	* control.c: put the definitions (from jackspa-cli.c) there:
+	  - some changes, notably less pointer indirection
+	* controls.h: define a controls_t type as control_t** and not as an array to make
+	  it compatible with C++ as extern "C" (arguments that point to unbounded arrays
+	  are invalid C++)
+	* jackspa-cli.c: delete the definitions of build_controls() and
+	  cleanup_controls() and use the new names
+	* njackspa.c: rename build_controls(), cleanup_controls() to init_window(),
+	  cleanup_windows() and call the new functions
+
+2013-06-11  G.raud  <graud@gmx.com>
+
+	merge cli: new command line interface
+	
+	* jackspa-cli.c: new command line interface for the terminal
+	* Makefile, README: updated
+
+2013-06-11  G.raud  <graud@gmx.com>
+
+	jackspa-cli: SIGTTIN handler
+	
+	* it allows to put the process in the background
+
+2013-06-11  G.raud  <graud@gmx.com>
+
+	jackspa-cli: SIGINT handler
+	
+	* it permits to exit gracefully when stdin is not a tty
+
+2013-06-09  G.raud  <graud@gmx.com>
+
+	jackspa-cli.c: new command line interface
+	
+	* without dynamic setting of the control inputs
+	* Makefile: updated
+	* README: updated
+	* .gitignore: updated
+
+2013-06-16  G.raud  <graud@gmx.com>
+
+	Makefile: [fix] clean: do not fail
+
+2013-06-17  G.raud  <graud@gmx.com>
+
+	Makefile: gjackspa: set GTK_DISABLE_DEPRECATED
+	
+	* nothing to be updated
+
+2013-06-15  G.raud  <graud@gmx.com>
+
+	gjackspa.cpp: remove the old copyright
+	
+	* no original code remains
+
+2013-06-09  G.raud  <graud@gmx.com>
+
+	gjackspa: refactor by calling control_init() from control.h
+
+2013-06-08  G.raud  <graud@gmx.com>
+
+	control: add port, desc, hint members to control_t
+	
+	* also delete needless member alt_sel
+
+2013-06-08  G.raud  <graud@gmx.com>
+
+	control.h, control.c: new module providing control_init() and control_*()
+	
+	* also export type control_t
+	* control_init(): new name of init_control()
+	* control_exchange(): new name of c_exchange()
+	* control_rounding(): new function
+	* njackspa.c: delete the previous definitions of control_t, init_control() and
+	  c_exchange() and call the new names plus control_rounding()
+	* JACKSPA_FLOAT, JACKSPA_INT, JACKSPA_TOGGLE: new names of VAL_FLOAT, VAL_INT,
+	  VAL_TOGGLE, to avoid name clashes
+
+2013-06-08  G.raud  <graud@gmx.com>
+
+	gjackspa: pop up error window
+
+2013-06-09  G.raud  <graud@gmx.com>
+
+	Makefile, README: updated for the new njackspa
+	
+	* Makefile:
+	  - $MODULES: new variable
+	  - $EXECUTABLES: new name of $EXECUTABLE
+	  - build rules specialised for each executable
+	* .gitignore: updated
+
+2013-06-09  G.raud  <graud@gmx.com>
+
+	merge njackspa: new visual interface
+	
+	* njackspa.c: new ncurses interface program
+
+2013-06-04  G.raud  <graud@gmx.com>
+
+	njackspa: check that the default is in the range during init
+	
+	* warn if the default is not given
+	* warn if the default is not in the range
+
+2013-06-04  G.raud  <graud@gmx.com>
+
+	njackspa: [fix] round default and bounds during init
+
+2013-06-05  G.raud  <graud@gmx.com>
+
+	gjackspa: ControlWidget: make the button spread out across 2 lines
+
+2013-06-05  G.raud  <graud@gmx.com>
+
+	gjackspa: ControlWidget: pack the label and the slider on consecutive lines
+
+2013-06-05  G.raud  <graud@gmx.com>
+
+	gjackspa: ControlWidget: add a button to set to the default
+
+2013-06-05  G.raud  <graud@gmx.com>
+
+	gjackspa: ControlWidget instead of ControlSlider
+	
+	* the ControlWidget encapsulates the Label of the control
+
+2013-06-04  G.raud  <graud@gmx.com>
+
+	njackspa: ERR_NODEFAULT
+
+2013-06-03  G.raud  <graud@gmx.com>
+
+	njackspa: display the plugin label and the plugin name
+	
+	* display the plugin label in the window title
+	* '?': key to switch bewtween the displaying of the help and the plugin name
+
+2013-06-03  G.raud  <graud@gmx.com>
+
+	njackspa: only highlight the alternate value of the selected control
+
+2013-06-02  G.raud  <graud@gmx.com>
+
+	njackspa: better key bindings
+
+2013-06-03  G.raud  <graud@gmx.com>
+
+	njackspa: [bug] round to nearest int in update or init
+
+2013-06-02  G.raud  <graud@gmx.com>
+
+	njackspa: display the type of the control (float, integer, toggle)
+	
+	* also display ~ between the bounds
+
+2013-06-02  G.raud  <graud@gmx.com>
+
+	njackspa: increment dependent on the range
+
+2013-06-02  G.raud  <graud@gmx.com>
+
+	njackspa: value changing keybindings
+	
+	* first version with dynamic setting of the control ports
+
+2013-06-02  G.raud  <graud@gmx.com>
+
+	njackspa: code cleanup
+	
+	* keep only one window: define a NUM_WINDOWS
+	* delete the code referring to the unused type WinType
+	* delete the code referring to the audio/midi modes
+	* ERR_OUT: temporarily quits curses mode
+	* delete unused ERR messages
+	* squeeze some block statements into a sequence of expressions
+	* miscellaneous improvements (indentation, delete C++ style comments etc.)
+
+2013-06-05  G.raud  <graud@gmx.com>
+
+	gjackspa: ControlSlider: UPDATE_DISCONTINUOUS eases the comparisons of 2 values
+
+2013-06-05  G.raud  <graud@gmx.com>
+
+	gjackspa: add automatic scrollbars to the main window
+
+2013-06-05  G.raud  <graud@gmx.com>
+
+	gjackspa: display the plugin name
+
+2013-06-02  G.raud  <graud@gmx.com>
+
+	njackspa.c: new ncurses interface based on njconnect.c version 1.2
+	
+	* first working version
+	* still incomplete
+
+2013-06-06  G.raud  <graud@gmx.com>
+
+	jackspa.c, jackspa.h: make jackspa.cpp a C source file
+	
+	* jackspa.h, jackspa.c: new names of jackspa.hpp, jackspa.cpp
+	  - change the comments to C style comments
+	  - jackspa.h: provide an extern "C" wrapper for C++ compilers
+	  - jackspa.c: include jackspa.h
+	* gjackpsa: include jackspa.h
+
+2013-06-11  G.raud  <graud@gmx.com>
+
+	gjackspa.cpp: new name of gui.cpp
+	
+	* Makefile: updated and fixed
+	* README: updated
+
+2013-06-06  G.raud  <graud@gmx.com>
+
+	make a fork of jackspa named ng-jackspa
+	
+	* README: mention the fork
+	* change the package name in the source files
+	* change the licensing text in the headers (keep the source under the GPL version
+	  2 of course)
+	* COPYING: add a file containing the GPL v2 license
+
+2013-06-05  G.raud  <graud@gmx.com>
+
+	unexpand spaces to tabs & reindent
+
+2013-06-01  G.raud  <graud@gmx.com>
+
+	gui: [fix] set the default control values in the widgets
+
+2013-06-01  G.raud  <graud@gmx.com>
+
+	[bug] let jackspa_init() return an error code
+	
+	* so as to exit early if an error occurs during the initialisation
+
+2013-06-01  G.raud  <graud@gmx.com>
+
+	gui: code simplification
+
+2013-06-01  G.raud  <graud@gmx.com>
+
+	remove needless braces
+
+2013-06-01  G.raud  <graud@gmx.com>
+
+	gui: [bug] ControlSlider: correct the default high value
+
+2013-06-01  G.raud  <graud@gmx.com>
+
+	README: new simple README
+
+2013-06-01  G.raud  <graud@gmx.com>
+
+	.gitignore
+
+2013-06-01  G.raud  <graud@gmx.com>
+
+	[bug] compilation error "conversion from string literal to 'char *' is deprecated"
+	
+	* add a const keyword to the error strings since they are eventually initialised
+	  by string literals
+
+2007-01-28  JesusWaffle  <JesusWaffle@gmail.com>
+
+	GUI tweaks.
+
+2007-01-28  JesusWaffle  <JesusWaffle@gmail.com>
+
+	Initial checkin.

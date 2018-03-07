@@ -1,0 +1,471 @@
+'\" t
+.\"     Title: ng-jackspa
+.\"    Author: [see the "AUTHOR" section]
+.\" Generator: DocBook XSL Stylesheets v1.76.1 <http://docbook.sf.net/>
+.\"      Date: 07/07/2013
+.\"    Manual: ng-jackspa commands
+.\"    Source: ng-jackspa 1.0
+.\"  Language: English
+.\"
+.TH "NG\-JACKSPA" "1" "07/07/2013" "ng\-jackspa 1\&.0" "ng\-jackspa commands"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+ng-jackspa \- simple LADSPA hosts for the Jack Audio Connection Kit
+.SH "SYNOPSIS"
+.sp
+.nf
+\fIjackspa_interface\fR \fB\-\-help\-all\fR
+\fIjackspa_interface\fR [\fIoptions\fR] [\fB\-\-\fR] \fIplugin_library\fR \fIUID_or_label\fR
+.fi
+.SH "DESCRIPTION"
+.sp
+ng\-jackspa is a set of simple user interfaces that host a LADSPA plugin, providing JACK ports for its audio inputs and outputs, and dynamic setting of its control inputs through the user interface\&.
+.sp
+The plugin is to be found in the library \fIplugin_library\fR; if it is not an absolute filename, the $LADSPA_PATH is searched\&. The argument \fIUID_or_label\fR identifies the plugin inside the library by its Unique ID or by its label name; it is converted to a number by the function strtol(3); if the whole argument is not recognized as a number, it is considered to be a plugin label\&.
+.SS "Common features"
+.sp
+Several interface programs are available that share the same jackspa engine\&. They have the same features and common command line switches\&.
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+The user interfaces allow to reset the controls to their defaults and to switch instantaneously between two sets of control values\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+The initial control values, the default values and the bounds can be set on the command line\&. Otherwise they are taken from the plugin descriptor\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+The control ports of the LADSPA plugin can be exported to or controlled by control voltages on standard JACK audio ports; they can be connected to other jackspa control voltages by employing the same methods or tools as for standard JACK audio ports\&. Only the first sample of a frame belonging to the control outputs is non zero and it is set to the control value; to match this behaviour, only the first sample of a frame coming to the control inputs are read as the control value\&. The control outputs can be connected to a standard peak meter to visualize their values\&.
+.RE
+.SH "INTERFACE PROGRAMS"
+.SS "njackspa"
+.sp
+An ncurses visual (full screen) interface for the terminal\&. There is a short help text available on the bottom of the screen; it has additional vi\-like keybindings; use \fIH\fR/\fIL\fR to change the control values a little\&.
+.sp
+A specification like the one passed on the command line to set some inital values can be given directly in a text entry field (\fI^O\fR or \fIi\fR), in which editing keys similar to the ones used in terminal line editing mode (a\&.k\&.a\&. cooked mode) are available, in addition to editing/moving keys \(`a la Emacs:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+
+\fI^U\fR,
+\fI^K\fR
+to kill;
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+
+\fI^H\fR/backspace to erase back;
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+
+\fI^D\fR/delete to delete;
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+
+\fI^A\fR,
+\fI^B\fR,
+\fI^F\fR,
+\fI^E\fR
+to move;
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+
+\fI^P\fR
+to recall the previous entry;
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+
+\fI^O\fR/escape to cancel;
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+
+\fI^M\fR/\fI^J\fR/enter to validate\&.
+.RE
+.SS "gjackspa, qjackspa"
+.sp
+Respectively GTK+ and Qt 4 graphical interfaces for X11\&. Keyboard shortcuts are available that set to the defaults or exchange values\&. To exit, tell the window manager\&.
+.SS "jackspa\-cli"
+.sp
+A command line program for the terminal with job control awareness\&.
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+It can be ended by typing
+\fI^D\fR
+(EOF on its input) if stdin is a tty or by sending the signal SIGINT (\fI^C\fR
+when the process is in the foreground)\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+It has the ability of being put in the background\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+By sending SIGTSTP (\fI^Z\fR), the process is stopped, as is common, but it is restarted at once to continue to run in the background; this may generate some xrun\(cqs\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+By sending SIGUSR1, the values of the active controls are printed on the standard output\&.
+.RE
+.sp
+The only way to change to change the control parameters at runtime is by control voltages on the control inputs exported to JACK input audio ports\&.
+.SH "OPTIONS"
+.sp
+Most options are available to all the interfaces\&. Not all the options are listed here; to see all the options available to a given ng\-jackspa interface, use \-\-help\-all\&.
+.PP
+\fB\-\-help\-all\fR
+.RS 4
+Print all the command line options available and exit\&.
+.RE
+.PP
+\fB\-\-inits\fR, \fB\-i\fR \fIvalue_list\fR, \fB\-\-defaults\fR, \fB\-d\fR \fIvalue_list\fR, \fB\-\-bounds\fR, \fB\-b\fR \fIvalue_list\fR
+.RS 4
+The argument is a colon separated list of value specifications\&. A specification can be:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+empty: skip (keep the default behaviour)
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+
+<,
+>: the minimum and the maximum respectively; if the plugin does not give bounds, default (somewhat sensible) bounds are computed;
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+
+%23: a percentage indicating a position in the range between the bounds;
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+
+d: the plugin default, if available;
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+
+1\&.2e\-2: otherwise a string converted to a number by strtof(3)\&.
+.RE
+.RE
+.SH "ENVIRONMENT VARIABLES"
+.PP
+LADSPA_PATH
+.RS 4
+Search paths for the LASDPA plugin libraries\&.
+.RE
+.PP
+JACK_DEFAULT_SERVER
+.RS 4
+The name of the JACK server to which to connect; if it is not given, the default server name is
+default\&.
+.RE
+.PP
+JACK_NO_START_SERVER
+.RS 4
+If set, do not start a JACK server if none is already running\&.
+.RE
+.SH "EXIT STATUS"
+.sp
+A non zero exit status indicates an error; messages are printed on stderr in this case\&.
+.PP
+\fB0\fR
+.RS 4
+No errors\&.
+.RE
+.SH "EXAMPLES"
+.SS "Simple command invocations"
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+njackspa amp 1049
+gjackspa \-b 2 amp\&.so amp_mono
+jackspa\-cli \-i \*(Aq>:0\&.5\*(Aq /usr/lib/ladspa/delay\&.so 1043
+.fi
+.if n \{\
+.RE
+.\}
+.SS "Connecting several jackspa instances together"
+.sp
+Separate high and low frequencies by using two plugins and controlling the common cutoff frequency:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+jackspa\-cli \-I cmt lpf &
+njackspa \-T cmt hpf
+jack_connect jackspa_hpf:"Cutoff Frequency (Hz)" jackspa_lpf:"Cutoff Frequency (Hz)"
+jack_connect system:capture_1 jackspa_lpf:"Input"
+jack_connect system:capture_1 jackspa_hpf:"Input"
+.fi
+.if n \{\
+.RE
+.\}
+.SS "Programmatically controlling an ng\-jackspa instance"
+.sp
+To control an ng\-jackspa instance from another process, launch njackspa in a tmux and let tmux send the required keys:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+tmux new \-s 1 \*(Aqnjackspa <args>\*(Aq
+# programmatically set the second control to its default
+tmux send\-keys \-t 1 g j d
+# programmatically increase the last control
+tmux send\-keys \-t 1 G l
+# set the current control field to zero
+tmux send\-keys \-t 1 \*(Aqc\-o\*(Aq 0 \*(Aqc\-j\*(Aq
+# interactively control the instance from any terminal
+tmux attach \-t 1
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+The easiest way to retrieve the state of another running jackspa instance is to export the control inputs as JACK control voltages in jackspa then to connect as a JACK client to get the current values\&.
+.SS "Controlling an ng\-jackspa instance from a remote host"
+.sp
+If the network access is permanent, ssh can be used for the terminal based interfaces or for the graphical interfaces:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+ssh host \-\- njackspa \-i 0\&.5 amp 1049
+ssh \-f \-X host \-\- gjackspa amp 1049
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+If the network access is not permanent, tmux can be added as a terminal proxy, as above:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+# if only the creation/destruction of an instance is desired
+ssh \-f host \-\- daemon jackspa\-cli \-i 0\&.5 amp 1049
+ssh host \-\- pkill \-INT jackspa\-cli
+# launch a remote instance
+ssh \-f host \-\- tmux new \-s 1 \-d \*(Aqnjackspa <args>\*(Aq
+# connect to the remote instance
+ssh host \-\- tmux attach \-t 1
+# reset all the active values to their defaults
+ssh host \-\- tmux send\-keys \-t 1 K D
+.fi
+.if n \{\
+.RE
+.\}
+.SH "BUGS"
+.sp
+See the ng\-jackspa distribution file \fIBUGS\fR to learn how to report bugs or request a feature\&. This is a list of known important bugs and limitations\&.
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+If the sample rate of the JACK server changes, the LADSPA plugin is not restarted and it continues to run with the initial sample rate; depending on the plugin, it may or not be wrong\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+If the JACK server shuts down, the interface programs just continue to run, without notifying of the failure and without ever trying to reconnect to a newly started server\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+The graphical interfaces do not update their displayed control values when these are changed by control voltages appearing on the JACK input audio ports associated with their respective controls\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+If the LADSPA plugin has a port name whose length makes the related JACK port name unacceptably long, no attempt to truncate the name is made and the initialisation fails\&.
+.RE
+.SH "AUTHOR"
+.sp
+ng\-jackspa was written by G\&.raud Meyer\&.
+.SH "SEE ALSO"
+.sp
+listplugins(1), analyseplugin(1), strtol(3), strtof(3), jackd(1), jack\-rack(1), non\-mixer(1)
+.sp
+The file \fIladspa\&.h\fR that is part of the LADSPA SDK\&.

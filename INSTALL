@@ -1,0 +1,101 @@
+ng-jackspa has been written under a GNU/Linux OS but should work under other
+UNIX flavours.
+
+
+Installation instructions
+-------------------------
+
+The official source for release downloads is at
+<http://download.gna.org/ngjackspa/>.  The dependencies to build the package
+have to be installed first (see <<dependencies, Dependencies>> below).
+
+To install directly from the sources' tree, download a release archive and
+extract it.  The quick and simple way to install ng-jackspa with documentation
+in your home directory +~/.local+ is to run:
+
+[source,sh]
+$ make .help
+$ make
+$ make install install-doc
+
+To adjust the installation process (as well as the build process) set Makefile
+variables on the command line:
+
+[source,sh]
+$ make CFLAGS='-g -O2 -fstack-protector'
+$ make install prefix=$HOME/.local/stow/ngjackspa
+
+Distributors might use the +DESTDIR+ Makefile variable to install the files for
+packaging:
+
+[source,sh]
+$ make install DESTDIR=./packagefiles
+
+Documentation building
+~~~~~~~~~~~~~~~~~~~~~~
+To avoid the installation of the documentation tool chain, pre-compiled
+documentation files are available in the release archives.  To force the
+re-building of the documentation, delete the files first:
+
+[source,sh]
+$ make distclean doc
+
+Verifying the signatures
+~~~~~~~~~~~~~~~~~~~~~~~~
+You need to have the
+link:https://gna.org/project/memberlist-gpgkeys.php?group=ngjackspa[GnuPG key]
+of the packager.
+
+[source,sh]
+$ gpg --keyring ngjackspa-keyring.gpg -v ngjackspa-${version}.tar.gz.sig
+
+
+[[dependencies]]
+Dependencies
+------------
+
+The following tools are required:
+
+[cols="3<,8<",options="header"]
+|=============================================================================
+|Tool               |Description
+|C/C++ compiler
+	|link:http://gcc.gnu.org[GCC] and link:http://clang.llvm.org/[Clang] have
+	been tested.
+|link:http://www.ladspa.org/[LADSPA SDK]
+	|The include file 'ladspa.h' of the LADSPA sound plugin interface is
+	 required during the compilation.
+|link:http://jackaudio.org/download[JACK Audio Connection Kit]
+	|The sound system.
+|link:http://www.gnu.org/software/ncurses/[ncurses]
+	|Smart terminal API for the visual interface njackspa.
+|link:http://www.gtkmm.org/[gtkmm-2.4] and a compatible link:http://www.gtk.org/[GTK+]
+	|Widgets for the graphical interface gjackspa.
+|link:http://qt-project.org/[Qt 4]
+	|Widgets for the graphical interface qjackspa.
+|POSIX-like terminal interface and signals
+	|For the command line interface jackspa-cli.
+|link:https://developer.gnome.org/glib/[Glib 2.0]
+	|For the command line option parser of all the programs; also required by GTK+.
+|link:http://www.gnu.org/software/make/[GNU Make]
+	|Used for building and installing.  Other make programs will not work.
+|=============================================================================
+
+The following optional tools and packages are needed for (re-)building the
+documentation:
+
+[cols="3<,8<",options="header"]
+|=============================================================================
+|Tool               |Description
+|link:http://www.methods.co.nz/asciidoc/[AsciiDoc]
+	|Generates HTML and (DocBook) XML from text.
+|link:http://www.gnu.org/software/src-highlite/[GNU Source-highlight]
+	|Used by asciidoc to highlight sh code.
+|link:http://cyberelk.net/tim/software/xmlto/[xmlto]
+	|Generates UNIX manual pages from XML.
+|link:http://xmlsoft.org/XSLT/[xsltproc],
+  link:http://docbook.sourceforge.net[DocBook XSL]
+	|Used by xmlto for building the manual pages.
+|=============================================================================
+
+Furthermore, you will require some LADSPA plugins at runtime.

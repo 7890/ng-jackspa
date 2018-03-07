@@ -1,0 +1,2 @@
+http://repo.or.cz/ng-jackspa.git/blob_plain/refs/heads/download:/ngjackspa-1.0.tar.gz
+Mit Mär  7 20:35:37 CET 2018
